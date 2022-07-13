@@ -26,8 +26,8 @@ public class FacultyController {
         return facultyService.getFacultyById(id);
     }
 
-    @GetMapping("/color/{color}")
-    public Collection<Faculty> getAllFacultiesByColor(@PathVariable String color) {
+    @GetMapping
+    public Collection<Faculty> getAllFacultiesByColor(@RequestParam(required = false) String color) {
         return facultyService.getAllFacultiesByColor(color);
     }
 

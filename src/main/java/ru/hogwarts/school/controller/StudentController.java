@@ -26,8 +26,8 @@ public class StudentController {
         return studentService.getStudentById(id);
     }
 
-    @GetMapping("/age/{age}")
-    public Collection<Student> getAllStudentsByAge(@PathVariable int age) {
+    @GetMapping
+    public Collection<Student> getAllStudentsByAge(@RequestParam(required = false) int age) {
         return studentService.getAllStudentsByAge(age);
     }
 
