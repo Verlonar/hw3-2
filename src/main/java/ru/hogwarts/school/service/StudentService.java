@@ -33,10 +33,6 @@ public class StudentService {
         return students.remove(id);
     }
 
-    public Collection<Student> getAllStudents() {
-        return students.values();
-    }
-
     public Collection<Student> getAllStudentsByAge(int age) {
         return students.values()
                 .stream()

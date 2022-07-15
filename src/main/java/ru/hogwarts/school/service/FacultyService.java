@@ -33,10 +33,6 @@ public class FacultyService {
         return faculties.remove(id);
     }
 
-    public Collection<Faculty> getAllFaculties() {
-        return faculties.values();
-    }
-
     public Collection<Faculty> getAllFacultiesByColor(String color) {
         return faculties.values()
                 .stream()

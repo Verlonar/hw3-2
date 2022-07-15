@@ -19,11 +19,6 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @GetMapping
-    public Collection<Student> getStudentById() {
-        return studentService.getAllStudents();
-    }
-
     @GetMapping("{id}")
     public ResponseEntity<Student> getStudentById(@PathVariable Long id) {
         Student student = studentService.getStudentById(id);

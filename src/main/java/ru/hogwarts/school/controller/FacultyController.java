@@ -19,11 +19,6 @@ public class FacultyController {
         this.facultyService = facultyService;
     }
 
-    @GetMapping
-    public Collection<Faculty> getAllFaculties() {
-        return facultyService.getAllFaculties();
-    }
-
     @GetMapping("{id}")
     public ResponseEntity<Faculty> getFacultyById(@PathVariable Long id) {
         Faculty faculty = facultyService.getFacultyById(id);
