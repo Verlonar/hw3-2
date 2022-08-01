@@ -10,14 +10,12 @@ import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import ru.hogwarts.school.controller.AvatarController;
 import ru.hogwarts.school.controller.FacultyController;
-import ru.hogwarts.school.controller.StudentController;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.repository.FacultyRepository;
 import ru.hogwarts.school.service.FacultyService;
 
-import java.util.List;
+import java.util.Collections;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -26,7 +24,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest
+@WebMvcTest(controllers = FacultyController.class)
 public class FacultyControllerTest {
 
     @Autowired
@@ -37,12 +35,6 @@ public class FacultyControllerTest {
 
     @SpyBean
     private FacultyService facultyService;
-
-    @MockBean
-    private AvatarController avatarController;
-
-    @MockBean
-    private StudentController studentController;
 
     @InjectMocks
     private FacultyController facultyController;
@@ -59,13 +51,11 @@ public class FacultyControllerTest {
         faculty.setName(facultyName);
         faculty.setColor(facultyColor);
 
-        List<Faculty> facultyList = List.of(faculty);
-
         JSONObject facultyObject = new JSONObject();
         facultyObject.put("name", facultyName);
 
         when(facultyRepository.findById(any(Long.class))).thenReturn(Optional.of(faculty));
-        when(facultyRepository.getAllFacultiesByColorOrName(eq(facultyColor), any(String.class))).thenReturn(facultyList);
+        when(facultyRepository.getFacultiesByColor(eq(facultyColor))).thenReturn(Collections.singleton(faculty));
         when(facultyRepository.save(any(Faculty.class))).thenReturn(faculty);
 
         mockMvc.perform(MockMvcRequestBuilders
@@ -79,7 +69,8 @@ public class FacultyControllerTest {
                         .get("/faculty?color=" + facultyColor)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name").value(facultyName));
+                .andReturn()
+                .getResponse().containsHeader(facultyName);
 
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/faculty")
