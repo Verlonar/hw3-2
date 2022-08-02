@@ -59,4 +59,8 @@ public class AvatarService {
     public Avatar findAvatar(Long studentsId) {
         return avatarRepository.findByStudentId(studentsId).orElse(new Avatar());
     }
+
+    public void deleteAvatarByStudentId(Long studentId) {
+        avatarRepository.deleteByStudentId(studentId);
+    }
 }

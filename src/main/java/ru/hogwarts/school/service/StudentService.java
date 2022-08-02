@@ -12,8 +12,11 @@ public class StudentService {
 
     private final StudentRepository studentRepository;
 
-    public StudentService(StudentRepository studentRepository) {
+    private final AvatarService avatarService;
+
+    public StudentService(StudentRepository studentRepository, AvatarService avatarService) {
         this.studentRepository = studentRepository;
+        this.avatarService = avatarService;
     }
 
 
@@ -31,6 +34,7 @@ public class StudentService {
     }
 
     public void deleteStudent(Long id) {
+        avatarService.deleteAvatarByStudentId(id);
         studentRepository.deleteById(id);
     }
 
