@@ -29,12 +29,13 @@ public class FacultyController {
     }
 
     @GetMapping
-    public ResponseEntity<Collection<Faculty>> getAllFacultiesByColor(@RequestParam(required = false) String color,
-                                                                      @RequestParam(required = false) String name) {
-        if ((color != null && !color.isBlank())) {
-            return ResponseEntity.ok(facultyService.getAllFacultiesByColor(color));
-        } else if (name != null && name.isBlank()) {
-            return ResponseEntity.ok(facultyService.getAllFacultyByName(name));
+    public ResponseEntity<Collection<Faculty>> getAllFacultiesByColor(@RequestParam(required = false) String name,
+                                                                      @RequestParam(required = false) String color) {
+        if (name != null && !name.isBlank()) {
+            return ResponseEntity.ok(facultyService.getAllFacultiesByNameOrColor(name, null));
+        }
+        if (color != null && !color.isBlank()) {
+            return ResponseEntity.ok(facultyService.getAllFacultiesByNameOrColor(null, color));
         }
         return ResponseEntity.ok(facultyService.findAllFaculties());
     }

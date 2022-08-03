@@ -41,6 +41,21 @@ public class StudentController {
         return ResponseEntity.ok(studentService.findAllStudents());
     }
 
+    @GetMapping("/students-count")
+    public Long getStudentsCount() {
+        return studentService.getStudentsCount();
+    }
+
+    @GetMapping("/students-age-avg")
+    public Long getStudentsAgeAvg() {
+        return studentService.getStudentsAgeAvg();
+    }
+
+    @GetMapping("/get-last-five-students")
+    public ResponseEntity<Collection<Student>> getLastFiveStudents() {
+        return ResponseEntity.ok(studentService.getLastFiveStudents());
+    }
+
     @PostMapping
     public Student addStudent(@RequestBody Student student) {
         return studentService.addStudent(student);
