@@ -33,12 +33,8 @@ public class FacultyService {
         facultyRepository.deleteById(id);
     }
 
-    public Collection<Faculty> getAllFacultiesByColor(String color) {
-        return facultyRepository.getFacultiesByColor(color);
-    }
-
-    public Collection<Faculty> getAllFacultyByName(String name) {
-        return facultyRepository.getAllFacultyByName(name);
+    public Collection<Faculty> getAllFacultiesByNameOrColor(String name, String color) {
+        return facultyRepository.getFacultiesByNameOrColor(name, color);
     }
 
     public Collection<Faculty> findAllFaculties() {

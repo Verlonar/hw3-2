@@ -18,8 +18,7 @@ import ru.hogwarts.school.service.FacultyService;
 import java.util.Collections;
 import java.util.Optional;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -55,7 +54,7 @@ public class FacultyControllerTest {
         facultyObject.put("name", facultyName);
 
         when(facultyRepository.findById(any(Long.class))).thenReturn(Optional.of(faculty));
-        when(facultyRepository.getFacultiesByColor(eq(facultyColor))).thenReturn(Collections.singleton(faculty));
+        when(facultyRepository.getFacultiesByNameOrColor(anyString(), anyString())).thenReturn(Collections.singleton(faculty));
         when(facultyRepository.save(any(Faculty.class))).thenReturn(faculty);
 
         mockMvc.perform(MockMvcRequestBuilders
