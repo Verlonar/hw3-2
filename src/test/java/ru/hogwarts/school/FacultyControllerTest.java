@@ -54,7 +54,7 @@ public class FacultyControllerTest {
         facultyObject.put("name", facultyName);
 
         when(facultyRepository.findById(any(Long.class))).thenReturn(Optional.of(faculty));
-        when(facultyRepository.getFacultiesByNameOrColor(anyString(), anyString())).thenReturn(Collections.singleton(faculty));
+        when(facultyRepository.getFacultiesByNameIgnoreCaseOrColorIgnoreCase(anyString(), anyString())).thenReturn(Collections.singleton(faculty));
         when(facultyRepository.save(any(Faculty.class))).thenReturn(faculty);
 
         mockMvc.perform(MockMvcRequestBuilders
